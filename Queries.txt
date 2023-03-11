@@ -1,0 +1,153 @@
+create database DBMS;
+
+use DBMS;
+
+SET foreign_key_checks = 0;
+SET foreign_key_checks = 1;
+
+drop table emp_reg5;
+
+
+
+create table emp_reg5(
+id varchar(20) primary key,
+fname varchar(20),
+lname varchar(20),
+email varchar(20),
+age varchar(20),
+phone int,
+adhaar varchar(20),
+s_date varchar(50));
+
+
+
+select * from emp_reg5;
+delete from emp_reg5 where adhaar=2;
+truncate table emp_reg5;
+
+drop table c_reg;
+
+drop table emp_info;
+
+create table emp_info(
+id varchar(20),
+hno int,
+hname varchar(20),
+sname varchar(20),
+state varchar(20),
+city varchar(20),
+pincode int,
+foreign key(id) references emp_reg5(id));
+
+select * from emp_info;
+delete from emp_info where hno = 22;
+
+create table emp_photo(
+id varchar(20),
+photo longblob,
+foreign key(id) references emp_reg5(id));
+
+select * from emp_photo;	
+delete from emp_photo where id="E220010";
+
+drop table emp_photo;
+
+create table c_reg2(
+id varchar(20) primary key,
+fname varchar(20),
+lname varchar(20),
+age int,
+phone int,
+adhaar int,
+reg_date varchar(50));
+select * from c_reg2;
+delete from c_reg2 where fname="a";
+truncate table c_reg2;
+
+alter table c_reg2 modify column adhaar varchar(20);
+
+create table c_info1(
+id varchar(20),
+hno int,
+hname varchar(20),
+sname varchar(20),
+state varchar(20),
+city varchar(20),
+pincode int,
+foreign key(id) references c_reg2(id));
+
+select * from c_info1;
+
+truncate table c_info1;
+
+create table c_photo(
+id varchar(20),
+about varchar(100),
+photo longblob,
+foreign key(id) references c_reg2(id));
+
+select * from c_photo;
+
+truncate table c_photo;
+
+
+
+create table pdt_reg2(
+pid varchar(20) primary key,
+id varchar(20),
+p_name varchar(20),
+p_type varchar(20),
+quantity int,
+price int,
+
+s_date varchar(50),
+foreign key(id) references c_reg2(id));
+
+select * from pdt_reg2;
+
+update  pdt_reg2 set p_name = "B" where pid="P220002";
+
+delete from pdt_reg2 where p_name="A";
+truncate table pdt_reg2 ;
+
+delete from pdt_reg2 where pid = "P220008";
+
+select pid from pdt_reg2 where id ="C220001";
+
+DELETE FROM pdt_reg2 where pid = "P220002";
+
+create table p_photo(
+id varchar(20),
+photo longblob,
+foreign key(id) references pdt_reg2(pid));
+
+select * from p_photo;
+truncate table p_photo;
+
+create table pdt_desc(
+id varchar(20),
+des  varchar(100),
+foreign key(id) references pdt_reg2(pid));
+select * from pdt_desc; 
+
+truncate table pdt_desc;
+
+insert into pdt_desc values("P220001","AAA");
+
+select photo from p_photo A, pdt_reg2 B where A.id = B.pid;
+
+Select * from pdt_send2;
+
+truncate table pdt_send2;
+
+select * from pdt_stock;
+
+truncate table pdt_stock;
+
+select * from pdt_send;
+
+select * from stock;
+
+truncate table stock;
+
+
